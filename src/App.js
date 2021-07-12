@@ -1,7 +1,8 @@
-import { MyComponent, AddCoin } from './components';
+import { Home } from './pages';
 import Styles from './App.module.css';
 import { CoinDataProvider } from './CoinDataProvider';
 import { StoreProvider } from './Store';
+
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 const queryClient = new QueryClient()
@@ -11,7 +12,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <CoinDataProvider>
         <StoreProvider>
-          <AddCoin />
+          <Home />
         </StoreProvider>
       </CoinDataProvider>
     </QueryClientProvider>

@@ -1,8 +1,8 @@
 import { useCoinData } from '../../CoinDataProvider'
 
-export default function Coin({ coinId }) {
+export default function Coin({ handleChooseCoin, coinId }) {
     const { useCoinWithRichData } = useCoinData()
-    const { data, isLoading } = useCoinWithRichData(coinId)
+    const { data: coin, isLoading: isCoinLoading } = useCoinWithRichData(coinId)
 
     const formatPrice = (price) => {
         if (price) {
@@ -11,11 +11,11 @@ export default function Coin({ coinId }) {
         return 0
     }
 
-    if (isLoading) return 'Loading...'
+    if (isCoinLoading) return 'Loading...'
 
     return (
-        <div>
-            {`${data.name} | ${formatPrice(data.market_data.current_price.usd)}`}
+        <div onClick={() => handleChooseCoin(coin)}>
+            {`${coin.name} | ${formatPrice(coin.market_data.current_price.usd)}`}
         </div>
     )
 }
