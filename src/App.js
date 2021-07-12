@@ -1,12 +1,20 @@
-import { CoinData, AddCoin } from './components';
+import { MyComponent, AddCoin } from './components';
 import Styles from './App.module.css';
+import { CoinDataProvider } from './CoinDataProvider';
+import { StoreProvider } from './Store';
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+const queryClient = new QueryClient()
 
 function App() {
   return (
-    <div>
-      <AddCoin />
-      <CoinData />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <CoinDataProvider>
+        <StoreProvider>
+          <AddCoin />
+        </StoreProvider>
+      </CoinDataProvider>
+    </QueryClientProvider>
   );
 }
 

@@ -1,7 +1,7 @@
-import CoinData from './CoinData/CoinData'
 import AddCoin from './AddCoin/AddCoin'
+import Coin from './Coin/Coin'
 
 export {
-    CoinData,
-    AddCoin
+    AddCoin,
+    Coin
 }
