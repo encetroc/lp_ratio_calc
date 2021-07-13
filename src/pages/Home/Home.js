@@ -7,7 +7,6 @@ export default function Home() {
 
     return (
         <div className={Styles.container}>
-            <AddCoin />
             {
                 Object.keys(state.currentCoins).map(key => {
                     if (state.currentCoins[key].state === 'search') {
@@ -17,7 +16,7 @@ export default function Home() {
                     }
                 })
             }
-            {`total value: ${state.totalValue}`}
+            <AddCoin />
         </div>
     )
 }

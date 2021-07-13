@@ -19,8 +19,8 @@ const reducer = (state, action) => {
                     [coinKey]: {
                         state: 'search',
                         coin: {},
-                        amount: 0,
-                        ratio: 0,
+                        amount: 1,
+                        ratio: 1,
                         newAmount: 0
                     }
                 }
@@ -64,8 +64,12 @@ const reducer = (state, action) => {
                 ...state,
                 totalValue: Object.keys(state.currentCoins).reduce((accumulator, coinKey) => {
                     const currentCoin = state.currentCoins[coinKey]
-                    const currentCoinValue = currentCoin.coin.market_data.current_price.usd * currentCoin.amount
+                    let currentCoinValue = 0
+                    if (currentCoin.coin.market_data) {
+                        currentCoinValue = currentCoin.coin.market_data.current_price.usd * currentCoin.amount
+                    }
                     return accumulator + currentCoinValue
+
                 }, 0)
             }
         case 'UPDATE_NEW_AMOUNT':
@@ -73,9 +77,15 @@ const reducer = (state, action) => {
                 ...state,
                 currentCoins: Object.keys(state.currentCoins).map(coinKey => {
                     const currentCoin = state.currentCoins[coinKey]
-                    return {
-                        ...currentCoin,
-                        newAmount: currentCoin.ratio * state.totalValue / currentCoin.coin.market_data.current_price.usd / 100
+                    if (currentCoin.coin.market_data) {
+                        return {
+                            ...currentCoin,
+                            newAmount: currentCoin.ratio * state.totalValue / currentCoin.coin.market_data.current_price.usd / 100
+                        }
+                    } else {
+                        return {
+                            ...currentCoin
+                        }
                     }
                 })
             }

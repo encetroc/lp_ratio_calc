@@ -1,4 +1,6 @@
 import { useStore } from "../../Store"
+import { CBox, Card, Hover } from '../../elements'
+import Styles from './AddCoin.module.css'
 
 export default function AddCoin() {
     const { dispatch } = useStore()
@@ -10,6 +12,14 @@ export default function AddCoin() {
     }
 
     return (
-        <button onClick={handleAddCoin}>add coin</button>
+        <Hover>
+            <Card justifyContent={'center'} dashed onClick={handleAddCoin}>
+                <CBox alignItems={'center'} justifyContent={'center'}>
+                    <span>
+                        <strong style={{ fontSize: '1.5rem' }}>Add coin</strong>
+                    </span>
+                </CBox>
+            </Card >
+        </Hover>
     )
 }
