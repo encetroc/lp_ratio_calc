@@ -1,8 +1,10 @@
+import copy from 'copy-to-clipboard';
+
 import { useRef, useEffect } from 'react'
-import { useStore } from '../../Store'
-import Styles from './CoinCalculate.module.css'
-import { CBox, Diff, Card, Input, Label } from '../../elements'
-import { Coin } from '../'
+import { useStore } from '../Store'
+import { CBox, Diff, Card, Input, Label, Close } from '../elements'
+import { CopyIcon, DeleteIcon } from '../icons'
+import { Coin } from '.'
 
 export default function CoinCalculate({ coinKey }) {
     const { state, dispatch } = useStore()
@@ -41,6 +43,22 @@ export default function CoinCalculate({ coinKey }) {
         })
     }
 
+    const unselectCoin = (coin) => {
+        dispatch({
+            type: 'UNSELECT_COIN',
+            payload: {
+                coinKey: coinKey
+            }
+        })
+    }
+
+    const deleteCoin = () => {
+        dispatch({
+            type: 'DELETE_COIN',
+            payload: coinKey
+        })
+    }
+
     const formatter = new Intl.NumberFormat('en-US', {
         maximumSignificantDigits: 6,
     })
@@ -63,10 +81,25 @@ export default function CoinCalculate({ coinKey }) {
         }
     }
 
+    const copyValue = (value) => {
+        return copy(value, {
+            format: 'text/plain',
+            onCopy: () => {
+                dispatch({
+                    type: 'COPY_TO_CLIPBOARD',
+                    payload: value
+                })
+            }
+        });
+    }
+
     return (
         <Card>
+            <Close onClick={deleteCoin}>
+                <DeleteIcon />
+            </Close>
             <CBox gap={'1rem'}>
-                <Coin coinId={state.currentCoins[coinKey].coin.id} />
+                <Coin coinId={state.currentCoins[coinKey].coin.id} handleCoinClick={unselectCoin} isDeletable={true} />
                 <CBox>
                     <Label for='amount'>{`Amount of ${state.currentCoins[coinKey].coin.symbol.toUpperCase()}`}</Label>
                     <Input id='amount' ref={amountInputRef} type='number' value={state.currentCoins[coinKey].amount} onChange={(event) => handleCoinAmountChange(event)} />
@@ -77,14 +110,16 @@ export default function CoinCalculate({ coinKey }) {
                 </CBox>
                 <CBox>
                     <Label for='new'>New amount</Label>
-                    <Diff id='new' value={formatNewAmount().raw}>
+                    <Diff id='new' value={formatNewAmount().raw} onClick={() => copyValue(formatNewAmount().raw)}>
                         {formatNewAmount().formatted}
+                        <CopyIcon />
                     </Diff>
                 </CBox>
                 <CBox>
                     <Label for='diff'>Amount to add or subtract</Label>
-                    <Diff id='diff' value={calculateDiff().raw}>
+                    <Diff id='diff' value={calculateDiff().raw} onClick={() => copyValue(Math.abs(calculateDiff().raw))}>
                         {calculateDiff().formatted}
+                        <CopyIcon />
                     </Diff>
                 </CBox>
             </CBox>

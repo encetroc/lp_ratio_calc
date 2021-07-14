@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { useQuery, useQueries } from 'react-query'
+import { Loading, FullScreen } from './elements'
 
 const CoinDataContext = React.createContext()
 
@@ -29,7 +30,13 @@ function CoinDataProvider({ children }) {
         useCoinWithRichData
     }
 
-    if (isCoinsLoading) return 'Loading...'
+    if (isCoinsLoading) {
+        return (
+            <FullScreen>
+                <Loading big />
+            </FullScreen>
+        )
+    }
 
     return (
         <CoinDataContext.Provider value={value}>

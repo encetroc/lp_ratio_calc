@@ -1,6 +1,5 @@
-import { useStore } from "../../Store"
-import { CBox, Card, Hover } from '../../elements'
-import Styles from './AddCoin.module.css'
+import { useStore } from "../Store"
+import { CBox, Card, Hover } from '../elements'
 
 export default function AddCoin() {
     const { dispatch } = useStore()

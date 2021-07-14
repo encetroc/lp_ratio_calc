@@ -5,7 +5,8 @@ const StoreContext = React.createContext()
 
 const initialState = {
     currentCoins: {},
-    totalValue: 0
+    totalValue: 0,
+    copied: 0
 }
 
 const reducer = (state, action) => {
@@ -25,7 +26,7 @@ const reducer = (state, action) => {
                     }
                 }
             }
-        case 'CHOOSE_COIN':
+        case 'SELECT_COIN':
             return {
                 ...state,
                 currentCoins: {
@@ -34,6 +35,20 @@ const reducer = (state, action) => {
                         ...state.currentCoins[action.payload.coinKey],
                         state: 'calculate',
                         coin: action.payload.coin,
+                    }
+                }
+            }
+        case 'UNSELECT_COIN':
+            return {
+                ...state,
+                currentCoins: {
+                    ...state.currentCoins,
+                    [action.payload.coinKey]: {
+                        state: 'search',
+                        coin: {},
+                        amount: 1,
+                        ratio: 1,
+                        newAmount: 0
                     }
                 }
             }
@@ -89,6 +104,22 @@ const reducer = (state, action) => {
                     }
                 })
             }
+        case 'COPY_TO_CLIPBOARD': {
+            return {
+                ...state,
+                copied: action.payload
+            }
+        }
+        case 'COPY_TO_CLIPBOARD_END': {
+            return {
+                ...state,
+                copied: 0
+            }
+        }
+        case 'DELETE_COIN':
+            const newState = { ...state }
+            delete newState.currentCoins[action.payload]
+            return newState
         default:
             return state
     }

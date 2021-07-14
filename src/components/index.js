@@ -1,11 +1,13 @@
-import AddCoin from './AddCoin/AddCoin'
-import CoinSearch from './CoinSearch/CoinSearch'
-import Coin from './Coin/Coin'
-import CoinCalculate from './CoinCalculate/CoinCalculate'
+import AddCoin from './AddCoin'
+import CoinSearch from './CoinSearch'
+import Coin from './Coin'
+import CoinCalculate from './CoinCalculate'
+import CopyNotification from './CopyNotification'
 
 export {
     CoinSearch,
     AddCoin,
     Coin,
-    CoinCalculate
+    CoinCalculate,
+    CopyNotification
 }

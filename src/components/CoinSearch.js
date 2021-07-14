@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import Styles from './CoinSearch.module.css'
-import { useCoinData } from '../../CoinDataProvider'
-import { Coin } from '../'
-import { Card, CBox, Input, Label } from '../../elements'
-import { useStore } from '../../Store'
+import { useCoinData } from '../CoinDataProvider'
+import { Coin } from '.'
+import { Card, CBox, Input, Label, Close } from '../elements'
+import { DeleteIcon } from '../icons'
+import { useStore } from '../Store'
 
 export default function CoinSearch({ coinKey }) {
     const [searchInput, setSearchInput] = useState('')
@@ -21,9 +21,9 @@ export default function CoinSearch({ coinKey }) {
         }
     }
 
-    const handleChooseCoin = (coin) => {
+    const selectCoin = (coin) => {
         dispatch({
-            type: 'CHOOSE_COIN',
+            type: 'SELECT_COIN',
             payload: {
                 coinKey: coinKey,
                 coin: coin
@@ -31,14 +31,24 @@ export default function CoinSearch({ coinKey }) {
         })
     }
 
+    const deleteCoin = () => {
+        dispatch({
+            type: 'DELETE_COIN',
+            payload: coinKey
+        })
+    }
+
     return (
         <Card>
+            <Close onClick={deleteCoin}>
+                <DeleteIcon />
+            </Close>
             <CBox gap={'1rem'}>
                 <CBox>
                     <Label for="search">Search coin by symbol</Label>
                     <Input id="search" type='text' placeholder='ETH, BTC ...' value={searchInput} onChange={(event) => handleSearchInputChange(event)} />
                 </CBox>
-                {searchResult.map(coin => <Coin key={coin.id} handleChooseCoin={handleChooseCoin} coinId={coin.id} />)}
+                {searchResult.map(coin => <Coin key={coin.id} handleCoinClick={selectCoin} coinId={coin.id} />)}
             </CBox>
         </Card>
     )

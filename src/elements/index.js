@@ -6,6 +6,11 @@ import Input from './Input'
 import Diff from './Diff'
 import Label from './Label'
 import Hover from './Hover'
+import CoinWrapper from './CoinWrapper'
+import Notification from './Notification'
+import Close from './Close'
+import Loading from './Loading'
+import FullScreen from './FullScreen'
 
 export {
     Card,
@@ -15,5 +20,10 @@ export {
     Input,
     Diff,
     Label,
-    Hover
+    Hover,
+    CoinWrapper,
+    Notification,
+    Close,
+    Loading,
+    FullScreen
 }

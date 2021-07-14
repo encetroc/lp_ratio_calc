@@ -1,6 +1,11 @@
 import styled from 'styled-components'
 
-export default styled.span`
+export default styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
     padding: .8rem;
     font-weight: 700;
     text-align:center;
