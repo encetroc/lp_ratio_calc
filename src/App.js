@@ -1,7 +1,13 @@
-import { Home } from './pages';
-import Styles from './App.module.css';
+import { Calculator, Home } from './pages';
 import { CoinDataProvider } from './CoinDataProvider';
 import { StoreProvider } from './Store';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 import { QueryClient, QueryClientProvider } from 'react-query'
 
@@ -12,7 +18,16 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <CoinDataProvider>
         <StoreProvider>
-          <Home />
+          <Router>
+            <Switch>
+              <Route path="/app">
+                <Calculator />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </Router>
         </StoreProvider>
       </CoinDataProvider>
     </QueryClientProvider>
