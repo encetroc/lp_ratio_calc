@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-import { useQuery, useQueries } from 'react-query'
-import { Loading, FullScreen } from './elements'
+import { useQuery } from 'react-query'
 
 const CoinDataContext = React.createContext()
 
@@ -9,7 +8,7 @@ const useCoinData = () => {
 }
 
 function CoinDataProvider({ children }) {
-    const { isLoading: isCoinsLoading, error: coinsError, data: coins } = useQuery('getCoins', () =>
+    const { isLoading: isCoinsLoading, data: coins } = useQuery('getCoins', () =>
         fetch(`https://api.coingecko.com/api/v3/coins/list?include_platform=false`, { mode: 'cors' }).then(res =>
             res.json()
         )
@@ -28,14 +27,6 @@ function CoinDataProvider({ children }) {
         isCoinsLoading,
         coins,
         useCoinWithRichData
-    }
-
-    if (isCoinsLoading) {
-        return (
-            <FullScreen>
-                <Loading big />
-            </FullScreen>
-        )
     }
 
     return (

@@ -9,7 +9,7 @@ export default function CoinSearch({ coinKey }) {
     const [searchInput, setSearchInput] = useState('')
     const [searchResult, setSearchResult] = useState([])
     const { coins } = useCoinData()
-    const { state, dispatch } = useStore()
+    const { dispatch } = useStore()
 
     const handleSearchInputChange = async (event) => {
         setSearchInput(event.target.value)
@@ -45,7 +45,7 @@ export default function CoinSearch({ coinKey }) {
             </Close>
             <CBox gap={'1rem'}>
                 <CBox>
-                    <Label for="search">Search coin by symbol</Label>
+                    <Label htmlFor="search">Search coin by symbol</Label>
                     <Input id="search" type='text' placeholder='ETH, BTC ...' value={searchInput} onChange={(event) => handleSearchInputChange(event)} />
                 </CBox>
                 {searchResult.map(coin => <Coin key={coin.id} handleCoinClick={selectCoin} coinId={coin.id} />)}

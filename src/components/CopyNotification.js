@@ -13,7 +13,7 @@ export default function CopyNotification() {
                 type: 'COPY_TO_CLIPBOARD_END'
             })
         }, 1500)
-    }, [])
+    })
 
     const closeNotification = () => {
         dispatch({

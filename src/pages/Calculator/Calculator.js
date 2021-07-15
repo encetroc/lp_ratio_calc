@@ -2,9 +2,20 @@ import { AddCoin, CoinSearch, CoinCalculate, CopyNotification } from '../../comp
 import { useStore } from '../../Store'
 import { Footer } from '..'
 import Styles from './Calculator.module.css'
+import { useCoinData } from '../../CoinDataProvider'
+import { FullScreen, Loading } from '../../elements'
 
 export default function Calculator() {
     const { state } = useStore()
+    const { isCoinsLoading } = useCoinData()
+
+    if (isCoinsLoading) {
+        return (
+            <FullScreen>
+                <Loading big />
+            </FullScreen>
+        )
+    }
 
     return (
         <div className={Styles.title_container}>

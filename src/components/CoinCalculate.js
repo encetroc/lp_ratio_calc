@@ -101,22 +101,22 @@ export default function CoinCalculate({ coinKey }) {
             <CBox gap={'1rem'}>
                 <Coin coinId={state.currentCoins[coinKey].coin.id} handleCoinClick={unselectCoin} isDeletable={true} />
                 <CBox>
-                    <Label for='amount'>{`Amount of ${state.currentCoins[coinKey].coin.symbol.toUpperCase()}`}</Label>
+                    <Label htmlFor='amount'>{`Amount of ${state.currentCoins[coinKey].coin.symbol.toUpperCase()}`}</Label>
                     <Input id='amount' ref={amountInputRef} type='number' value={state.currentCoins[coinKey].amount} onChange={(event) => handleCoinAmountChange(event)} />
                 </CBox>
                 <CBox>
-                    <Label for='ratio'>Pool ratio in %</Label>
+                    <Label htmlFor='ratio'>Pool ratio in %</Label>
                     <Input id='ratio' type='number' value={state.currentCoins[coinKey].ratio} onChange={(event) => handleCoinRatioChange(event)} />
                 </CBox>
                 <CBox>
-                    <Label for='new'>New amount</Label>
+                    <Label htmlFor='new'>New amount</Label>
                     <Diff id='new' value={formatNewAmount().raw} onClick={() => copyValue(formatNewAmount().raw)}>
                         {formatNewAmount().formatted}
                         <CopyIcon />
                     </Diff>
                 </CBox>
                 <CBox>
-                    <Label for='diff'>Amount to add or subtract</Label>
+                    <Label htmlFor='diff'>Amount to add or subtract</Label>
                     <Diff id='diff' value={calculateDiff().raw} onClick={() => copyValue(Math.abs(calculateDiff().raw))}>
                         {calculateDiff().formatted}
                         <CopyIcon />

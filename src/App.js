@@ -5,8 +5,7 @@ import { StoreProvider } from './Store';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import { QueryClient, QueryClientProvider } from 'react-query'
