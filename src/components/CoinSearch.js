@@ -13,7 +13,7 @@ export default function CoinSearch({ coinKey }) {
 
     const handleSearchInputChange = async (event) => {
         setSearchInput(event.target.value)
-        const results = coins.filter(coin => coin.symbol === event.target.value)
+        const results = coins.filter(coin => coin.symbol === event.target.value.toLowerCase())
         if (results.length) {
             setSearchResult(results)
         } else {
